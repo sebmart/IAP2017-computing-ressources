@@ -1,2 +1,3 @@
 # IAP2017-computing-ressources
-Small class and reference material on using computational resources for Operations Research, particularly at MIT
+
+Small class and reference material created for IAP 2017 at MIT. Focus on using computational resources in Optimization and statistics.
