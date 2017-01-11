@@ -53,19 +53,56 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{How does it work?}
-    diagrams : jobs vs interactive
+\begin{frame}{How does it work : using a remote computer}
+  \begin{figure}
+    \includegraphics[width=\linewidth]{figures/iap2017-diagram1}
+  \end{figure}
+  An interactive remote control is the easiest way to use another computer.
+  \begin{itemize}
+    \item We use \alert{SSH} (see lecture 1) to control a terminal on a remote machine through our computer.
+    \item We can use the \alert{console} to do almost anything on the remote computer: create files, run a program, use Julia...
+    \item It is also possible to use graphical softwares like \alert{R-Studio or Matlab}.
+    \item It works with any computer, including your own machines.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{How does it work : using a cluster}
+  \begin{figure}
+    \only<1>{\includegraphics[width=\linewidth]{figures/iap2017-diagram2}}
+    \only<2>{\includegraphics[width=\linewidth]{figures/iap2017-diagram3}}
+  \end{figure}
+  When a computing cluster is available, we can run multiple ``jobs'' thanks to a \alert{job management system}.
+  \begin{itemize}
+    \item Allows us to use multiple remote machines, manages demand and resources available.
+    \item Different job management systems exist, I will use the example of Slurm, available to Sloan and ORC students on the cluster \alert{Engaging}.
+    \item More complex to use, but far more \alert{powerful}.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Resources}
-  Engaging, AWS, Athena, another personal computer...
+  There are several ways to have access to a remote computer or a cluster.
+  \begin{itemize}
+    \item Another personal computer you own.
+    \item Athena at MIT.
+    \item Resources of your department/lab (Engaging at Sloan).
+    \item Paying options: cloud computing (Amazon AWS, Google Cloud Computing...).
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Why Should I Use this}
-  - research breakthrough: try more parameter, run overnight
-  - Can be very simple (R-Studio...)
-  - Using Bigger datasets
-  - Useful skill in general, at the age of cloud
-  - learn how to use console (and GitHub), for real.
+  For research:
+  \begin{itemize}
+    \item Tackle bigger problems in Stats and Optimization.
+    \item Parallelize your computations (parameter grid search in ML for example)!
+    \item Longer computational times: run overnight or for a whole week!
+    \item Bigger Datasets become manageable.
+    \item Can be very simple to use with interactive sessions (RStudio...)
+  \end{itemize}
+  In general
+  \begin{itemize}
+    \item Simple to use, high reward (for example using RStudio).
+    \item Useful skill in general, at the age of cloud computing.
+    \item Good practice to learn how to use console (and GitHub).
+  \end{itemize}
 \end{frame}
 \end{document}
