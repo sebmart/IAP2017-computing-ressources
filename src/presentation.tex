@@ -13,7 +13,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{color}
 \usepackage{minted}
-\usemintedstyle{native}
+% \usemintedstyle{native}
 
 \title[IAP-2017]{Using Computational Resources in Optimization and Statistics}
 \author{Sébastien Martin}
@@ -27,7 +27,7 @@
 \end{frame}
 
 
-\section{Motivation}
+\section{Introduction}
 
 \begin{frame}{Heavy Computations}
   In Optimization and Statistics, we often need a lot of computational power:
@@ -92,17 +92,145 @@
 \begin{frame}{Why Should I Use this}
   For research:
   \begin{itemize}
-    \item Tackle bigger problems in Stats and Optimization.
-    \item Parallelize your computations (parameter grid search in ML for example)!
-    \item Longer computational times: run overnight or for a whole week!
-    \item Bigger Datasets become manageable.
-    \item Can be very simple to use with interactive sessions (RStudio...)
+    \item Tackle \alert{bigger problems} in Stats and Optimization.
+    \item \alert{Parallelize} your computations (parameter grid search in ML for example)!
+    \item Longer computational times: \alert{run overnight} or for a whole week!
+    \item \alert{Bigger Datasets} become manageable.
+    \item Can be very simple to use with interactive sessions (\alert{RStudio}...)
   \end{itemize}
-  In general
+  In general:
   \begin{itemize}
-    \item Simple to use, high reward (for example using RStudio).
-    \item Useful skill in general, at the age of cloud computing.
-    \item Good practice to learn how to use console (and GitHub).
+    \item \alert{Useful skill}, at the age of cloud computing.
+    \item \alert{Good practice} to learn how to use console (and GitHub).
   \end{itemize}
 \end{frame}
+
+\section{Using a Remote Machine}
+\begin{frame}{What Machine? Engaging}
+  Engaging is a powerful computing cluster for MIT Sloan affiliates, request an account at \texttt{stshelp@mit.edu}. It uses the job management system \alert{Slurm}, that we will use in this presentation.
+  \vspace{1cm}
+  \begin{block}{Connecting to Engaging}
+    \begin{description}
+      \item[Hostname] \texttt{eosloan1.mit.edu}
+      \item[Username] MIT Kerberos username (not your email address)
+      \item[Password] MIT Kerberos password
+    \end{description}
+    \texttt{wikis.mit.edu/confluence/display/sloanrc/Engaging+Platform}
+  \end{block}
+\end{frame}
+
+\begin{frame}{What Machine? Athena}
+  Any MIT affiliate can access the Athena distributed computing environment, you can use it to follow if you do not have access to Engaging.
+  \vspace{1cm}
+  \begin{block}{Connecting to Athena}
+    \begin{description}
+      \item[Hostname] \texttt{athena.dialup.mit.edu}
+      \item[Username] MIT Kerberos username (not your email address)
+      \item[Password] MIT Kerberos password
+    \end{description}
+    \texttt{http://web.mit.edu/dialup/www/ssh.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{SSH}
+  As seen in Lecture 1, you can connect to the remote machine through SSH:
+  \begin{minted}{console}
+[sebastien@seblaptop ~]$ ssh semartin@eosloan1.mit.edu
+Password:
+[semartin@eosloan1 ~]$
+  \end{minted}
+  \invisible<1>{
+  \begin{block}{Tip}
+    If you connect regularly to the same remote, you can set up a \alert{password-less login} (see Google). You can also set-up an alias instead of typing the full address each time.
+  \end{block}}
+\end{frame}
+
+\begin{frame}[fragile]{SSH}
+  As seen in Lecture 1, you can connect to the remote machine through SSH:
+  \begin{minted}{console}
+[sebastien@seblaptop ~]$ ssh semartin@athena.dialup.mit.edu
+Password:
+semartin@buzzword-bingo:~$
+  \end{minted}
+ \begin{block}{Tip}<2>
+    If you connect regularly to the same remote, you can set up a \alert{password-less login} (see Google). You can also set-up an alias instead of typing the full address each time.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Using the Terminal}
+    Once you are connected to the remote machine, you can use the terminal to interact with it:
+    \begin{minted}{console}
+[semartin@eosloan1 ~]$ pwd
+/home/semartin
+[semartin@eosloan1 ~]$ mkdir testfolder
+[semartin@eosloan1 ~]$ cd testfolder
+[semartin@eosloan1 testfolder]$ pwd
+/home/semartin/testfolder
+    \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Using Git/GitHub to Synchronize Code}
+    If you need to run code on the remote machine, an elegant way is to use git and GitHub:
+    \begin{figure}
+      \includegraphics[width=\linewidth]{figures/iap2017-diagram4}
+    \end{figure}
+    \pause
+    \begin{minted}{console}
+[semartin@eosloan1 testfolder]$ git clone \
+> https://github.com/sebmart/IAP2017-computing-ressources.git
+Cloning into 'IAP2017-computing-ressources'...
+    \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Using Screen to Keep your Session}
+  By default, your session is lost when your ssh connection ends. \alert{Linux Screen} can be used to close the connection while letting things run on the remote, and restart where you were.
+
+  \pause
+
+  \vspace{0.5cm}
+
+  \alert{Start screen session}: similar to starting a new terminal
+
+  \begin{minted}{console}
+[semartin@eosloan1 testfolder]$ screen
+  \end{minted}
+
+  \alert{Detach the screen session} before closing SSH: \texttt{Ctrl+A then D}: goes back to previous terminal. Then close the SSH connection (\texttt{Ctrl+D})
+
+  \vspace{0.3cm}
+
+  Restart the SSH connection and \alert{re-attach your screen session} as it was before:
+  \begin{minted}{console}
+[semartin@eosloan1 testfolder]$ screen -r
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]{Useful commands}
+  \begin{itemize}
+  \item Downloading from the Internet (useful to install software, or download datasets ): \alert{wget}
+  \begin{minted}{console}
+$ wget http://data.com/awesomedata.csv
+  \end{minted}
+  \item Transferring files between the local and remote machines: Secure Copy \alert{scp}
+  \begin{minted}{console}
+$ scp mylocalfile.txt semartin@eosloan1.mit.edu:~
+  \end{minted}
+
+  \end{itemize}
+
+  \pause
+
+  \begin{block}{For advanced users}
+    Use a search engine to learn more about this !
+    \begin{itemize}
+      \item \alert{screen} has lots of other advanced features (multiple windows...).
+      \item \alert{tmux} (terminal multiplexer) is like screen with lots of additional functionalities (panes...)
+      \item \alert{sshfs} allows you to access the files of the remote machine as if they were on your own (quite magic)!
+    \end{itemize}
+
+  \end{block}
+\end{frame}
+
+\section{Running Jobs on a Cluster}
+
 \end{document}
